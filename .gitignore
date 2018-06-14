@@ -3,3 +3,17 @@
 ################################################################################
 
 /bin
+/lib/ssleay32.lib
+/lib/libprotocd.lib
+/lib/libprotoc.lib
+/lib/libprotobufd.lib
+/lib/libprotobuf.lib
+/lib/libprotobuf-lited.lib
+/lib/libprotobuf-lite.lib
+/lib/libevent_extras.lib
+/lib/libevent_core.lib
+/lib/libevent.lib
+/lib/libeay32.lib
+/Bosnnc.VC.VC.opendb
+/Bosnnc.VC.db
+/.vs
