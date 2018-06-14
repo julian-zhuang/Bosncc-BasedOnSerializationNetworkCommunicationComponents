@@ -276,20 +276,6 @@ class ConnectProtocol : public ::google::protobuf::Message /* @@protoc_insertion
   const ::google::protobuf::RepeatedPtrField< ::Parameter >&
       parametergroup() const;
 
-  // string ApiName = 2;
-  void clear_apiname();
-  static const int kApiNameFieldNumber = 2;
-  const ::std::string& apiname() const;
-  void set_apiname(const ::std::string& value);
-  #if LANG_CXX11
-  void set_apiname(::std::string&& value);
-  #endif
-  void set_apiname(const char* value);
-  void set_apiname(const char* value, size_t size);
-  ::std::string* mutable_apiname();
-  ::std::string* release_apiname();
-  void set_allocated_apiname(::std::string* apiname);
-
   // bytes ByteData = 21;
   void clear_bytedata();
   static const int kByteDataFieldNumber = 21;
@@ -304,20 +290,12 @@ class ConnectProtocol : public ::google::protobuf::Message /* @@protoc_insertion
   ::std::string* release_bytedata();
   void set_allocated_bytedata(::std::string* bytedata);
 
-  // uint32 StateCode = 1;
-  void clear_statecode();
-  static const int kStateCodeFieldNumber = 1;
-  ::google::protobuf::uint32 statecode() const;
-  void set_statecode(::google::protobuf::uint32 value);
-
   // @@protoc_insertion_point(class_scope:ConnectProtocol)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::RepeatedPtrField< ::Parameter > parametergroup_;
-  ::google::protobuf::internal::ArenaStringPtr apiname_;
   ::google::protobuf::internal::ArenaStringPtr bytedata_;
-  ::google::protobuf::uint32 statecode_;
   mutable int _cached_size_;
   friend struct ::protobuf_ConnectProtocol_2eproto::TableStruct;
   friend void ::protobuf_ConnectProtocol_2eproto::InitDefaultsConnectProtocolImpl();
@@ -442,73 +420,6 @@ inline void Parameter::set_allocated_value(::std::string* value) {
 // -------------------------------------------------------------------
 
 // ConnectProtocol
-
-// uint32 StateCode = 1;
-inline void ConnectProtocol::clear_statecode() {
-  statecode_ = 0u;
-}
-inline ::google::protobuf::uint32 ConnectProtocol::statecode() const {
-  // @@protoc_insertion_point(field_get:ConnectProtocol.StateCode)
-  return statecode_;
-}
-inline void ConnectProtocol::set_statecode(::google::protobuf::uint32 value) {
-  
-  statecode_ = value;
-  // @@protoc_insertion_point(field_set:ConnectProtocol.StateCode)
-}
-
-// string ApiName = 2;
-inline void ConnectProtocol::clear_apiname() {
-  apiname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& ConnectProtocol::apiname() const {
-  // @@protoc_insertion_point(field_get:ConnectProtocol.ApiName)
-  return apiname_.GetNoArena();
-}
-inline void ConnectProtocol::set_apiname(const ::std::string& value) {
-  
-  apiname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ConnectProtocol.ApiName)
-}
-#if LANG_CXX11
-inline void ConnectProtocol::set_apiname(::std::string&& value) {
-  
-  apiname_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ConnectProtocol.ApiName)
-}
-#endif
-inline void ConnectProtocol::set_apiname(const char* value) {
-  GOOGLE_DCHECK(value != NULL);
-  
-  apiname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ConnectProtocol.ApiName)
-}
-inline void ConnectProtocol::set_apiname(const char* value, size_t size) {
-  
-  apiname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ConnectProtocol.ApiName)
-}
-inline ::std::string* ConnectProtocol::mutable_apiname() {
-  
-  // @@protoc_insertion_point(field_mutable:ConnectProtocol.ApiName)
-  return apiname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* ConnectProtocol::release_apiname() {
-  // @@protoc_insertion_point(field_release:ConnectProtocol.ApiName)
-  
-  return apiname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void ConnectProtocol::set_allocated_apiname(::std::string* apiname) {
-  if (apiname != NULL) {
-    
-  } else {
-    
-  }
-  apiname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), apiname);
-  // @@protoc_insertion_point(field_set_allocated:ConnectProtocol.ApiName)
-}
 
 // repeated .Parameter ParameterGroup = 20;
 inline int ConnectProtocol::parametergroup_size() const {

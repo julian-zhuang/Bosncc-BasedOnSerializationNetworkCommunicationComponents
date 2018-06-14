@@ -88,8 +88,6 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ConnectProtocol, statecode_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ConnectProtocol, apiname_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ConnectProtocol, parametergroup_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ConnectProtocol, bytedata_),
 };
@@ -126,13 +124,12 @@ void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\025ConnectProtocol.proto\"\'\n\tParameter\022\013\n\003"
-      "Key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"k\n\017ConnectProto"
-      "col\022\021\n\tStateCode\030\001 \001(\r\022\017\n\007ApiName\030\002 \001(\t\022"
-      "\"\n\016ParameterGroup\030\024 \003(\0132\n.Parameter\022\020\n\010B"
-      "yteData\030\025 \001(\014b\006proto3"
+      "Key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"G\n\017ConnectProto"
+      "col\022\"\n\016ParameterGroup\030\024 \003(\0132\n.Parameter\022"
+      "\020\n\010ByteData\030\025 \001(\014b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 181);
+      descriptor, 145);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ConnectProtocol.proto", &protobuf_RegisterTypes);
 }
@@ -467,8 +464,6 @@ void Parameter::InternalSwap(Parameter* other) {
 void ConnectProtocol::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int ConnectProtocol::kStateCodeFieldNumber;
-const int ConnectProtocol::kApiNameFieldNumber;
 const int ConnectProtocol::kParameterGroupFieldNumber;
 const int ConnectProtocol::kByteDataFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -487,22 +482,15 @@ ConnectProtocol::ConnectProtocol(const ConnectProtocol& from)
       parametergroup_(from.parametergroup_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  apiname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.apiname().size() > 0) {
-    apiname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.apiname_);
-  }
   bytedata_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.bytedata().size() > 0) {
     bytedata_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.bytedata_);
   }
-  statecode_ = from.statecode_;
   // @@protoc_insertion_point(copy_constructor:ConnectProtocol)
 }
 
 void ConnectProtocol::SharedCtor() {
-  apiname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   bytedata_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  statecode_ = 0u;
   _cached_size_ = 0;
 }
 
@@ -512,7 +500,6 @@ ConnectProtocol::~ConnectProtocol() {
 }
 
 void ConnectProtocol::SharedDtor() {
-  apiname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   bytedata_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -546,9 +533,7 @@ void ConnectProtocol::Clear() {
   (void) cached_has_bits;
 
   parametergroup_.Clear();
-  apiname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   bytedata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  statecode_ = 0u;
   _internal_metadata_.Clear();
 }
 
@@ -562,36 +547,6 @@ bool ConnectProtocol::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // uint32 StateCode = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &statecode_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // string ApiName = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_apiname()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->apiname().data(), static_cast<int>(this->apiname().length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ConnectProtocol.ApiName"));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
       // repeated .Parameter ParameterGroup = 20;
       case 20: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
@@ -641,21 +596,6 @@ void ConnectProtocol::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 StateCode = 1;
-  if (this->statecode() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->statecode(), output);
-  }
-
-  // string ApiName = 2;
-  if (this->apiname().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->apiname().data(), static_cast<int>(this->apiname().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ConnectProtocol.ApiName");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->apiname(), output);
-  }
-
   // repeated .Parameter ParameterGroup = 20;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->parametergroup_size()); i < n; i++) {
@@ -682,22 +622,6 @@ void ConnectProtocol::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_to_array_start:ConnectProtocol)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
-
-  // uint32 StateCode = 1;
-  if (this->statecode() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->statecode(), target);
-  }
-
-  // string ApiName = 2;
-  if (this->apiname().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->apiname().data(), static_cast<int>(this->apiname().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ConnectProtocol.ApiName");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->apiname(), target);
-  }
 
   // repeated .Parameter ParameterGroup = 20;
   for (unsigned int i = 0,
@@ -742,25 +666,11 @@ size_t ConnectProtocol::ByteSizeLong() const {
     }
   }
 
-  // string ApiName = 2;
-  if (this->apiname().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->apiname());
-  }
-
   // bytes ByteData = 21;
   if (this->bytedata().size() > 0) {
     total_size += 2 +
       ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->bytedata());
-  }
-
-  // uint32 StateCode = 1;
-  if (this->statecode() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->statecode());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -793,16 +703,9 @@ void ConnectProtocol::MergeFrom(const ConnectProtocol& from) {
   (void) cached_has_bits;
 
   parametergroup_.MergeFrom(from.parametergroup_);
-  if (from.apiname().size() > 0) {
-
-    apiname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.apiname_);
-  }
   if (from.bytedata().size() > 0) {
 
     bytedata_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.bytedata_);
-  }
-  if (from.statecode() != 0) {
-    set_statecode(from.statecode());
   }
 }
 
@@ -831,9 +734,7 @@ void ConnectProtocol::Swap(ConnectProtocol* other) {
 void ConnectProtocol::InternalSwap(ConnectProtocol* other) {
   using std::swap;
   parametergroup_.InternalSwap(&other->parametergroup_);
-  apiname_.Swap(&other->apiname_);
   bytedata_.Swap(&other->bytedata_);
-  swap(statecode_, other->statecode_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);
 }

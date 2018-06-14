@@ -7,8 +7,6 @@ message Parameter{
 
 //通信协议
 message ConnectProtocol{
-    uint32 StateCode = 1;
-    string ApiName = 2;
-    repeated Parameter Parameter =20;
+    repeated Parameter ParameterGroup =20;
     bytes ByteData = 21;
 }
