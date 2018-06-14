@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+message Parameter{
+    string Key = 1;
+    string value = 2;
+}
+
+//通信协议
+message ConnectProtocol{
+    uint32 StateCode = 1;
+    string ApiName = 2;
+    repeated Parameter Parameter =20;
+    bytes ByteData = 21;
+}
