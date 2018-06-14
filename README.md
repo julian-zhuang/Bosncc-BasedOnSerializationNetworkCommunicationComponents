@@ -1,0 +1,1 @@
+# Bosncc-BasedOnSerializationNetworkCommunicationComponents
