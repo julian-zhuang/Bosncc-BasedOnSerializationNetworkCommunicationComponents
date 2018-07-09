@@ -79,7 +79,7 @@ private:
 	Business_Function_CallBack Business_CallBack;//业务处理函数
 
 	//加密
-	int EnableSSLConnect;
+	unsigned int EnableSSLConnect;
 	bool SSLInitComplete;
 	SSL_CTX *ServerCtx;
 	

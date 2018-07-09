@@ -343,7 +343,7 @@ int Bosncc::SetEnableSSL(unsigned int UValue)
 
 int Bosncc::GetEnableSSL()
 {
-	if (EnableSSLConnect) {
+	if (EnableSSLConnect == ENABLE_SSL) {
 		return 1;
 	}
 	else {
@@ -356,6 +356,7 @@ Bosncc::Bosncc()
 	Started = false;
 	SSLInitComplete = false;	
 	CreatInstance = true;	
+	EnableSSLConnect = DISABLE_SSL;
 }
 
 Bosncc::~Bosncc()
@@ -773,17 +774,27 @@ VOID Bosncc::ServerThreadPoolWorking(PTP_CALLBACK_INSTANCE Instance, PVOID Conte
 		return VOID();
 	}
 
+	if (SSL_Status != DISABLE_SSL && SSL_Status != ENABLE_SSL) {
+		bufferevent_free(m_ThreadTask->Bufferevent);
+		if (SSL_Status == 200) {
+			SSL_shutdown(m_SSL);
+			SSL_free(m_SSL);
+		}
+		closesocket(m_ThreadTask->ConnectSocket);
+		printf("Ip:%s   Client Port:%d   Time:%d   Disconnect(SSL_STATUS ERROR)\n", inet_ntoa(m_ThreadTask->ConnectSocketAddr_in.sin_addr), ntohs(m_ThreadTask->ConnectSocketAddr_in.sin_port), time(0));
+		delete m_ThreadTask;//在主线程On_Accept_CallBack里面产生的，然后交给子线程，所以这里需要进行释放;
+		return VOID();
+	}
 	if (SSL_Status == DISABLE_SSL) {
 		// 读回调、写回调、错误回调
 		bufferevent_setcb(m_ThreadTask->Bufferevent, On_Read_CallBack, On_Write_CallBack, On_Error_CallBack, m_ThreadTask);
 	}
-	else
-	{
-		
+	if (SSL_Status == ENABLE_SSL) {
+
 		m_SSL = SSL_new(Bosncc::GetInstance()->ServerCtx);
-		
+
 		SSL_set_fd(m_SSL, m_ThreadTask->ConnectSocket);
-		
+
 		if (SSL_accept(m_SSL) != 1) {
 			printf("SSL_accept Error\n");
 			SSL_free(m_SSL);
@@ -794,7 +805,7 @@ VOID Bosncc::ServerThreadPoolWorking(PTP_CALLBACK_INSTANCE Instance, PVOID Conte
 		}
 		// 读回调、写回调、错误回调
 		bufferevent_setcb(m_ThreadTask->Bufferevent, On_Read_CallBack_SSL, On_Write_CallBack_SSL, On_Error_CallBack, m_ThreadTask);
-	} 
+	}
 	
 	m_ThreadTask->SetDataStage(READY_TO_RECV);
 	m_ThreadTask->DataPreparation();
@@ -832,7 +843,8 @@ VOID Bosncc::ClienThreadPoolWorking(PTP_CALLBACK_INSTANCE Instance, PVOID Contex
 	struct timeval WriteTimeOut = { m_timeout, 0 };
 	bufferevent_set_timeouts(m_ThreadTask->Bufferevent, &ReadTimeOut, &WriteTimeOut);
 
-	int m_EnableSSL = Bosncc::GetInstance()->EnableSSLConnect;
+	unsigned int m_EnableSSL = Bosncc::GetInstance()->EnableSSLConnect;
+	TRACE("%d \n", m_EnableSSL);
 	int SendCount = send(m_ThreadTask->ConnectSocket, (char*)&(m_EnableSSL), sizeof(unsigned int), 0);
 
 	if (SendCount <= 0) {
