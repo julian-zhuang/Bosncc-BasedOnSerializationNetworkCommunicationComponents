@@ -432,7 +432,7 @@ void Bosncc::On_Read_CallBack(bufferevent * Ubev, void * UVarg)
 			m_ThreadTask->SetVerificationValue(m_Verification);
 		}
 		if (m_ThreadTask->GetVerification()) {
-			TRACE("效验成功  %d   %d\n", 1, m_Verification);
+			TRACE("效验成功  %d   %d\n", true, m_Verification);
 			bufferevent_setwatermark(Ubev, EV_READ, 0, 0);//保证数据头和效验位的读取完整
 			m_ThreadTask->SetDataStage(CAN_RECV_DATA);
 			m_ThreadTask->DataPreparation();
@@ -440,7 +440,7 @@ void Bosncc::On_Read_CallBack(bufferevent * Ubev, void * UVarg)
 		else {
 			closesocket(fd);
 			event_base_loopbreak(m_ThreadTask->Threadbase);//终止事件循环
-			TRACE("效验失败  %d   %d\n", 0, m_Verification);
+			TRACE("效验失败  %d   %d\n", false, m_Verification);
 			return;
 		}
 	}
@@ -644,7 +644,7 @@ void Bosncc::On_Write_CallBack(bufferevent * Ubev, void * UVarg)
 		case CBR_RECV:
 			m_ThreadTask->SetTaskMode(300);//设置方向为接收
 			bufferevent_enable(Ubev, EV_READ | EV_PERSIST);
-			//设置读写高低水位
+			//设置读高低水位
 			bufferevent_setwatermark(Ubev, EV_READ, 4, 4);//保证数据头和效验位的读取完整
 			break;
 		case CBR_ALWAYS_RECV:
@@ -768,6 +768,7 @@ VOID Bosncc::ServerThreadPoolWorking(PTP_CALLBACK_INSTANCE Instance, PVOID Conte
 	unsigned int SSL_Status;
 	unsigned int RecvCount;
 	RecvCount = recv(m_ThreadTask->ConnectSocket, (char*)&SSL_Status, sizeof(unsigned int), 0);
+	TRACE("Bosncc::ServerThreadPoolWorking.Recv() SSL_Status:%d   RecvCount%d\n", SSL_Status, RecvCount);
 	if (RecvCount <= 0) {
 		closesocket(m_ThreadTask->ConnectSocket);
 		delete m_ThreadTask;

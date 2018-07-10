@@ -16,7 +16,6 @@ bosncc(Based On Serialization network communication Components)
 #include "ThreadTask.h"
 
 
-
 #define BOSNCC_MODEL_CLIENT 0x01
 #define BOSNCC_MODEL_SERVER 0x02
 

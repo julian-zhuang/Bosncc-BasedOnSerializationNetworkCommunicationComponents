@@ -35,6 +35,8 @@
 
 #include <event2/event.h>
 #include <event2/bufferevent.h>
+#include <event2/bufferevent_ssl.h>
+
 #pragma comment (lib,"libevent.lib")
 #pragma comment (lib,"libevent_core.lib")
 #pragma comment (lib,"libevent_extras.lib")
